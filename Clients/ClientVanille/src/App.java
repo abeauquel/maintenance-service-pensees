@@ -12,13 +12,13 @@ public class App {
 		Journal.activerNiveau(0);
 
 		//Pensee pensee = new Pensee("Rossetti","Ce qui est plus triste qu une oeuvre inachevee, c est une oeuvre jamais commencee.");
-		//penseeDAO.ajouterPensee(pensee);		
+		//penseeDAO.ajouterPensee(pensee);
 
 		VueInspirationVisuelle.launch(VueInspirationVisuelle.class, parametres);
 
 		PenseeDAO cachePenseeDAO = new PenseeDAO();
 		//cachePenseeDAO.listerPensees();
-		cachePenseeDAO.enregistrerPensee(new Pensee("",""));
+		cachePenseeDAO.enregistrerPensee(new Pensee("coucou","coucou"));
 
 	}
 

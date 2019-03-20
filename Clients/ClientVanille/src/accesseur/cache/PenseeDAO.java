@@ -1,6 +1,8 @@
 
 package accesseur.cache;
 
+package accesseur.cache;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -49,6 +51,10 @@ public class PenseeDAO implements PenseeURL{
         try {
             basededonnees = DriverManager.getConnection(DSN);
             PreparedStatement requeteEnregistrerPensee = basededonnees.prepareStatement(SQL_ENREGISTRER_PENSEE);
+
+            requeteEnregistrerPensee.setString(1, pensee.getAuteur()); // remplace le permier ?
+            requeteEnregistrerPensee.setString(2, pensee.getMessage()); // remplace le second ?
+
             requeteEnregistrerPensee.execute();
         } catch (SQLException e) {
             e.printStackTrace();
