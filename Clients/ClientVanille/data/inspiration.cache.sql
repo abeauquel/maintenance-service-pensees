@@ -1,4 +1,3 @@
-
 PRAGMA foreign_keys = 0;
 
 CREATE TABLE sqlitestudio_temp_table AS SELECT *
@@ -9,7 +8,8 @@ DROP TABLE pensee;
 CREATE TABLE pensee (
     id      INTEGER      PRIMARY KEY AUTOINCREMENT,
     auteur  STRING (255),
-    message TEXT
+    message TEXT,
+    source  TEXT
 );
 
 INSERT INTO pensee (
@@ -24,4 +24,4 @@ INSERT INTO pensee (
 
 DROP TABLE sqlitestudio_temp_table;
 
-PRAGMA foreign_keys = 1;
+PRAGMA foreign_keys = 1;keys = 1;
