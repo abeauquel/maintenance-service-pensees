@@ -16,77 +16,101 @@ import outils.JournalDesactivable;
 
 public class PenseeDAO implements PenseeURL{
 
-	protected DecodeurPenseesXML decodeur = new DecodeurPenseesXML();	
-	
+	protected DecodeurPenseesXML decodeur = new DecodeurPenseesXML();
+
 	public List<Pensee> listerPensees()
 	{
-		JournalDesactivable.ecrire("listerPensees()");			
-		String xml = null;		
-		
+		JournalDesactivable.ecrire("listerPensees()");
+		String xml = null;
+
 		try {
 			URL urlListePensees = new URL(URL_LISTE_PENSEES);
 			String derniereBalise = "</pensees>";
 			InputStream flux = urlListePensees.openConnection().getInputStream();
 			Scanner lecteur = new Scanner(flux);
-			lecteur.useDelimiter(derniereBalise); 
+			lecteur.useDelimiter(derniereBalise);
 			xml = lecteur.next() + derniereBalise;
 			lecteur.close();
-			Journal.ecrire(2, "xml : " + xml);			
-			
+			Journal.ecrire(2, "xml : " + xml);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		if(null == xml) return null;
-		
+
 		return decodeur.decoderListe(xml);
 	}
-	
+
+	public Pensee chargerPenseeAleatoire()
+	{
+		JournalDesactivable.ecrire("listerPensees()");
+		String xml = null;
+
+		try {
+			URL urlListePensees = new URL(URL_PENSEE_ALEATOIRE);
+			String derniereBalise = "</pensee>";
+			InputStream flux = urlListePensees.openConnection().getInputStream();
+			Scanner lecteur = new Scanner(flux);
+			lecteur.useDelimiter(derniereBalise);
+			xml = lecteur.next() + derniereBalise;
+			lecteur.close();
+			Journal.ecrire(2, "xml : " + xml);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if(null == xml) return null;
+
+		return decodeur.decoderPensee(xml);
+	}
+
 	public void ajouterPensee(Pensee pensee)
 	{
-		Journal.ecrire(1, "ajouterPensee()");			
+		Journal.ecrire(1, "ajouterPensee()");
 		String xml = "";
 		try {
-						
+
 			URL urlAjouterPensee = new URL(URL_AJOUTER_PENSEE);
 			HttpURLConnection connection = (HttpURLConnection) urlAjouterPensee.openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestMethod("POST");
 			//connection.setRequestProperty("User-Agent", "Java client");
-	        //connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			
+			//connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
 			OutputStream fluxEcriture = connection.getOutputStream();
 			OutputStreamWriter envoyeur = new OutputStreamWriter(fluxEcriture);
-			
+
 			envoyeur.write("auteur="+pensee.getAuteur()+"&message="+pensee.getMessage()+"&annee=" + pensee.getAnnee());
 			envoyeur.close();
-			
+
 			int codeReponse = connection.getResponseCode();
 			Journal.ecrire(2, "Code de réponse " + codeReponse);
-			
+
 			InputStream fluxLecture = connection.getInputStream();
 			Scanner lecteur = new Scanner(fluxLecture);
-			
+
 			String derniereBalise = "</action>";
 			lecteur.useDelimiter(derniereBalise);
 			xml = lecteur.next() + derniereBalise;
 			lecteur.close();
 			connection.disconnect();
-			
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
-		
+		}
+
 		decodeur.decoderReponseAction(xml);
 
 	}
 }
 
 /*
- * 
- 
+ *
+
 Code de réponse 200
 ajouterPensee()
 stdClass Object
@@ -107,6 +131,6 @@ stdClass Object
 )
 </message>
 </action>
- 
+
  *
  */
