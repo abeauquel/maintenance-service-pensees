@@ -2,13 +2,16 @@ package vue;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class VueInspirationVisuelle extends Application {
     public VueInspirationVisuelle()
@@ -27,6 +30,16 @@ public class VueInspirationVisuelle extends Application {
         scene = new Scene(racine, 800, 600);
         stade.setScene(scene);
         stade.show();
+        ControleurInspirationVisuelle.getInstance().initialiser();
+
+        // stade.setOnShowing(new EventHandler<WindowEvent>() {public void handle(WindowEvent event) {  } });
+    }
+
+    public void afficherListePensees()
+    {
+        System.out.println("afficherListePensees()");
+        TextArea champsMessage = (TextArea) scene.lookup("#listePensees");
+        champsMessage.setText("test");
     }
 
 
