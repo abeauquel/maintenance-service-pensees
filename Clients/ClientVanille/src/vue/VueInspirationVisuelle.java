@@ -1,5 +1,8 @@
 package vue;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import modele.Pensee;
+import outils.Journal;
 
 public class VueInspirationVisuelle extends Application {
     public VueInspirationVisuelle()
@@ -35,11 +40,19 @@ public class VueInspirationVisuelle extends Application {
         // stade.setOnShowing(new EventHandler<WindowEvent>() {public void handle(WindowEvent event) {  } });
     }
 
-    public void afficherListePensees()
+    public void afficherListePensees(List<Pensee> listePensees)
     {
         System.out.println("afficherListePensees()");
         TextArea champsMessage = (TextArea) scene.lookup("#listePensees");
-        champsMessage.setText("test");
+
+        for(Iterator<Pensee> visiteur = listePensees.iterator(); visiteur.hasNext(); )
+        {
+            Pensee pensee = visiteur.next();
+            String touteLaPensee = pensee.getMessage() + "(" + pensee.getAuteur() + ")";
+            champsMessage.setText(champsMessage.getText() + "\n" + touteLaPensee);
+            Journal.ecrire(5, touteLaPensee);
+        }
+
     }
 
 

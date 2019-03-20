@@ -17,13 +17,6 @@ public class ControleurInspirationVisuelle  implements Initializable {
 
     public ControleurInspirationVisuelle()
     {
-        List<Pensee> listePensees = penseeDAO.listerPensees();
-
-        for(Iterator<Pensee> visiteur = listePensees.iterator(); visiteur.hasNext(); )
-        {
-            Pensee pensee = visiteur.next();
-            Journal.ecrire(5, pensee.getMessage() + "(" + pensee.getAuteur() + ")");
-        }
         ControleurInspirationVisuelle.instance = this;
     }
     protected static ControleurInspirationVisuelle instance = null;
@@ -39,8 +32,14 @@ public class ControleurInspirationVisuelle  implements Initializable {
 
     public void initialiser()
     {
-        VueInspirationVisuelle.getInstance().afficherListePensees();
+        List<Pensee> listePensees = penseeDAO.listerPensees();
 
+        //for(Iterator<Pensee> visiteur = listePensees.iterator(); visiteur.hasNext(); )
+        //{
+        //	Pensee pensee = visiteur.next();
+        //	Journal.ecrire(5, pensee.getMessage() + "(" + pensee.getAuteur() + ")");
+        //}
+        VueInspirationVisuelle.getInstance().afficherListePensees(listePensees);
     }
 
     @Override
