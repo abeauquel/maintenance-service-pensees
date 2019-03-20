@@ -1,4 +1,4 @@
-package accesseur;
+package action;
 
 import java.io.IOException;
 import java.io.InputStream;
