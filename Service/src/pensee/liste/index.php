@@ -12,8 +12,8 @@ header("Content-type: text/xml");
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <pensee>
-    <auteur><?=($pensee->auteur)?></auteur>
-    <message><?=($pensee->message)?></message>
+    <auteur><?=(utf8_decode($pensee->auteur))?></auteur>
+    <message><?=(utf8_decode($pensee->message))?></message>
     <annee><?=$pensee->annee?></annee>
     <id><?=$pensee->idPensee?></id>
 </pensee>
